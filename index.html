@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard Perlengkapan Pelatihan K3 Konstruksi</title>
+<style>
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --tx: #1b1f24;
+  --mu: #6b7280;
+  --bd: #e3e6ea;
+  --ac: #f59e0b;
+  --ac-hover: #d97706;
+  --ok: #16a34a;
+  --ok-bg: #dcfce7;
+  --pr: #2563eb;
+  --pr-bg: #dbeafe;
+  --no: #dc2626;
+  --no-bg: #fee2e2;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171a;
+    --card: #1d2125;
+    --tx: #eceff2;
+    --mu: #9aa3ad;
+    --bd: #2c3238;
+    --ok-bg: #052e16;
+    --pr-bg: #172554;
+    --no-bg: #450a0a;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #14171a;
+  --card: #1d2125;
+  --tx: #eceff2;
+  --mu: #9aa3ad;
+  --bd: #2c3238;
+  --ok-bg: #052e16;
+  --pr-bg: #172554;
+  --no-bg: #450a0a;
+}
+
+:root[data-theme="light"] {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --tx: #1b1f24;
+  --mu: #6b7280;
+  --bd: #e3e6ea;
+  --ok-bg: #dcfce7;
+  --pr-bg: #dbeafe;
+  --no-bg: #fee2e2;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--tx);
+  font: 15px/1.45 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.w {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+header {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #1b1305;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.2);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+header p {
+  margin: 6px 0 0;
+  font-size: 0.92rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cd {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 10px 16px;
+  text-align: center;
+  font-weight: 800;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  min-width: 110px;
+}
+
+.cd span {
+  font-size: 1.6rem;
+  line-height: 1;
+  display: block;
+}
+
+.cd small {
+  display: block;
+  font-weight: 600;
+  font-size: 0.75rem;
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.g {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.c {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.c b {
+  font-size: 1.65rem;
+  display: block;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.c span {
+  color: var(--mu);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.bar {
+  height: 10px;
+  background: var(--bd);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  background: var(--ok);
+  width: 0%;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px 16px;
+  font-size: 0.84rem;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px border-top var(--bd);
+}
+
+.cat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px dashed var(--bd);
+}
+
+.cat-item span {
+  color: var(--tx);
+  font-weight: 500;
+}
+
+.cat-item b {
+  font-weight: 700;
+  color: var(--mu);
+  background: var(--bg);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0 12px;
+  align-items: center;
+}
+
+input, select, button {
+  font: inherit;
+  color: var(--tx);
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  padding: 8px 12px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus, select:focus {
+  border-color: var(--ac);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18);
+}
+
+input[type=search] {
+  flex: 1;
+  min-width: 200px;
+}
+
+.btn-icon {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  user-select: none;
+}
+
+.btn-icon:hover {
+  background: var(--bd);
+}
+
+.tw {
+  overflow-x: auto;
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+}
+
+th, td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--bd);
+  font-size: 0.88rem;
+}
+
+th {
+  color: var(--mu);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--card);
+  position: sticky;
+  top: 0;
+}
+
+tr.h td {
+  background: var(--bg);
+  font-weight: 700;
+  color: var(--tx);
+  font-size: 0.88rem;
+  border-top: 2px solid var(--bd);
+  padding: 10px 14px;
+}
+
+.st {
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 5px 8px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  border: 1px solid transparent;
+}
+
+.st.Siap {
+  color: var(--ok);
+  background: var(--ok-bg);
+  border-color: rgba(22, 163, 74, 0.25);
+}
+
+.st.Proses {
+  color: var(--pr);
+  background: var(--pr-bg);
+  border-color: rgba(37, 99, 235, 0.25);
+}
+
+.st.Belum {
+  color: var(--no);
+  background: var(--no-bg);
+  border-color: rgba(220, 38, 38, 0.25);
+}
+
+footer {
+  color: var(--mu);
+  font-size: 0.8rem;
+  margin: 18px 0 12px;
+  line-height: 1.5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+@media print {
+  body { background: white; color: black; }
+  .tools, button { display: none !important; }
+  .tw, .c, header { border: 1px solid #ccc !important; box-shadow: none !important; }
+  header { background: #f59e0b !important; color: black !important; }
+}
+</style>
+</head>
+<body>
+<div class="w">
+  <header>
+    <div>
+      <h1>Dashboard Perlengkapan Pelatihan &amp; Sertifikasi Petugas K3 Konstruksi</h1>
+      <p>9–12 November 2026 · SM Tower · 35 peserta · 3 tim panitia (Persiapan, Pelaksana, Pengawas)</p>
+    </div>
+    <div class="header-right">
+      <div class="cd">
+        <span id="hari">–</span>
+        <small>hari menuju acara</small>
+      </div>
+    </div>
+  </header>
+
+  <!-- Summary Statistics Grid -->
+  <div class="g">
+    <div class="c">
+      <b id="t">0</b>
+      <span>Total item</span>
+    </div>
+    <div class="c">
+      <b id="s" style="color:var(--ok)">0</b>
+      <span>Siap</span>
+    </div>
+    <div class="c">
+      <b id="p" style="color:var(--pr)">0</b>
+      <span>Dalam proses</span>
+    </div>
+    <div class="c">
+      <b id="b" style="color:var(--no)">0</b>
+      <span>Belum</span>
+    </div>
+  </div>
+
+  <!-- Overall Progress Card -->
+  <div class="c">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px">
+      <strong style="font-size:0.95rem">Kesiapan Keseluruhan</strong>
+      <strong id="pct" style="font-size:1.1rem; color:var(--ok)">0%</strong>
+    </div>
+    <div class="bar"><i id="pb"></i></div>
+    <div class="cat-grid" id="cats"></div>
+  </div>
+
+  <!-- Interactive Controls & Filters -->
+  <div class="tools">
+    <input type="search" id="q" placeholder="Cari perlengkapan…">
+    <select id="fc">
+      <option value="">Semua kategori</option>
+    </select>
+    <select id="fp">
+      <option value="">Semua tim</option>
+      <option value="Tim Persiapan">Tim Persiapan</option>
+      <option value="Tim Pelaksana">Tim Pelaksana</option>
+      <option value="Tim Pengawas">Tim Pengawas</option>
+    </select>
+    <select id="fs">
+      <option value="">Semua status</option>
+      <option value="Belum">Belum</option>
+      <option value="Proses">Proses</option>
+      <option value="Siap">Siap</option>
+    </select>
+    <button class="btn-icon" id="theme-toggle" title="Ubah Tema Display">
+      <span>🌓 Tema</span>
+    </button>
+    <button class="btn-icon" id="reset-btn" title="Reset status ke default">
+      <span>🔄 Reset</span>
+    </button>
+  </div>
+
+  <!-- Data Table -->
+  <div class="tw">
+    <table>
+      <thead>
+        <tr>
+          <th>Perlengkapan</th>
+          <th style="width: 140px;">Jumlah</th>
+          <th style="width: 140px;">PIC</th>
+          <th style="width: 130px;">Status</th>
+        </tr>
+      </thead>
+      <tbody id="tb"></tbody>
+    </table>
+  </div>
+
+  <footer>
+    <div>Jumlah dihitung untuk 35 peserta + ±10 panitia/instruktur (perkiraan). Pembagian PIC antar tim masih usulan. Status tersimpan di browser ini.</div>
+    <div>Storage Key: <code>k3-status-nov2026-v5</code></div>
+  </footer>
+</div>
+
+<script>
+/* Master Data Definition */
+const D = [
+  ["Ruang & Fasilitas", "Ruang kelas (kapasitas ≥ 35 orang)", "1 ruang (≥ 45 orang)", "Tim Persiapan"],
+  ["Ruang & Fasilitas", "Meja & kursi peserta", "35 set", "Tim Persiapan"],
+  ["Ruang & Fasilitas", "Area praktik / simulasi", "1 area", "Tim Pelaksana"],
+  ["Ruang & Fasilitas", "Ruang registrasi & sekretariat", "1 ruang", "Tim Persiapan"],
+
+  ["Audio Visual & IT", "Proyektor/LCD + layar", "2 unit", "Tim Pelaksana"],
+  ["Audio Visual & IT", "Sound system + mikrofon nirkabel", "1 set", "Tim Pelaksana"],
+  ["Audio Visual & IT", "Laptop instruktur & panitia", "4 unit", "Tim Pelaksana"],
+  ["Audio Visual & IT", "Printer + kertas cadangan", "1 unit", "Tim Persiapan"],
+  ["Audio Visual & IT", "Kabel roll / stop kontak, WiFi", "6 pcs", "Tim Pelaksana"],
+  ["Audio Visual & IT", "Whiteboard + spidol", "2 set", "Tim Persiapan"],
+
+  ["Perlengkapan Peserta", "ID card + lanyard", "45 pcs", "Tim Persiapan"],
+  ["Perlengkapan Peserta", "Ballpoint (ATK pelatihan)", "45 pcs", "Tim Persiapan"],
+  ["Perlengkapan Peserta", "Buku agenda (ATK pelatihan)", "35 pcs", "Tim Persiapan"],
+  ["Perlengkapan Peserta", "Flashdisk berisi materi (ATK pelatihan)", "35 pcs", "Tim Persiapan"],
+
+  ["APD (Praktik)", "Helm proyek", "35 pcs", "Tim Pelaksana"],
+  ["APD (Praktik)", "Rompi proyek", "35 pcs", "Tim Pelaksana"],
+  ["APD (Praktik)", "Sepatu boots", "35 pasang", "Tim Pelaksana"],
+
+  ["Administrasi & Sertifikasi", "Daftar hadir harian (4 hari)", "4 lembar", "Tim Pengawas"],
+  ["Administrasi & Sertifikasi", "Surat tugas instruktur & asesor", "3 surat", "Tim Persiapan"],
+  ["Administrasi & Sertifikasi", "Surat undangan pembukaan acara kepada Sekretariat Daerah Berau", "1 surat", "Tim Persiapan"],
+  ["Administrasi & Sertifikasi", "Surat undangan pembukaan acara kepada Kepala Dinas PUPR Berau", "1 surat", "Tim Persiapan"],
+  ["Administrasi & Sertifikasi", "Surat undangan pembukaan acara kepada Kepala Dinas PUPR dan Pera Prov. Kaltim cq. Kepala Bidang Bikon DPUPR dan Pera Prov. Kaltim", "1 surat", "Tim Persiapan"],
+
+  ["Konsumsi", "Air mineral (4 hari)", "180 btl", "Tim Persiapan"],
+  ["Konsumsi", "Coffee break pagi & sore (4 hari)", "360 box", "Tim Persiapan"],
+  ["Konsumsi", "Makan siang (4 hari)", "180 box", "Tim Persiapan"],
+
+  ["Dokumentasi & Promosi", "Banner / backdrop kegiatan", "1 pcs", "Tim Pelaksana"],
+  ["Dokumentasi & Promosi", "Kamera + fotografer", "1 paket", "Tim Pelaksana"]
+].map((r, i) => ({
+  id: i,
+  c: r[0],
+  n: r[1],
+  q: r[2],
+  p: r[3],
+  s: "Belum"
+}));
+
+const K = "k3-status-nov2026-v5";
+
+try {
+  const m = JSON.parse(localStorage.getItem(K) || "{}");
+  D.forEach(d => { if (m[d.id]) d.s = m[d.id]; });
+} catch (e) {
+  console.error("Gagal membaca localStorage", e);
+}
+
+function save() {
+  try {
+    const m = {};
+    D.forEach(d => m[d.id] = d.s);
+    localStorage.setItem(K, JSON.stringify(m));
+  } catch (e) {
+    console.error("Gagal menyimpan ke localStorage", e);
+  }
+}
+
+const $ = id => document.getElementById(id);
+const cats = [...new Set(D.map(d => d.c))];
+
+// Populate category dropdown options
+cats.forEach(c => {
+  const o = document.createElement("option");
+  o.value = c;
+  o.textContent = c;
+  $("fc").appendChild(o);
+});
+
+// Calculate countdown days to 9 November 2026
+function calculateCountdown() {
+  const targetDate = new Date(2026, 10, 9); // Nov 9, 2026
+  const now = new Date();
+  const diffTime = targetDate - now;
+  const diffDays = Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+  $("hari").textContent = diffDays;
+}
+calculateCountdown();
+
+function stats() {
+  const n = D.length;
+  const s = D.filter(d => d.s === "Siap").length;
+  const p = D.filter(d => d.s === "Proses").length;
+  const b = n - s - p;
+
+  $("t").textContent = n;
+  $("s").textContent = s;
+  $("p").textContent = p;
+  $("b").textContent = b;
+
+  // Siap counts as 100%, Proses counts as 50%
+  const pc = Math.round(((s + p * 0.5) / n) * 100);
+  $("pct").textContent = pc + "%";
+  $("pb").style.width = pc + "%";
+
+  // Category breakdown
+  $("cats").innerHTML = cats.map(c => {
+    const items = D.filter(d => d.c === c);
+    const ready = items.filter(d => d.s === "Siap").length;
+    return `
+      <div class="cat-item">
+        <span>${c}</span>
+        <b>${ready}/${items.length} Siap</b>
+      </div>
+    `;
+  }).join("");
+}
+
+function render() {
+  const fp = $("fp").value;
+  const q = $("q").value.toLowerCase().trim();
+  const fc = $("fc").value;
+  const fs = $("fs").value;
+
+  let h = "";
+  let lastCat = "";
+
+  const filtered = D.filter(d => {
+    const matchCat = !fc || d.c === fc;
+    const matchStatus = !fs || d.s === fs;
+    const matchPIC = !fp || d.p === fp;
+    const matchQuery = !q || (d.n + " " + d.p + " " + d.q).toLowerCase().includes(q);
+    return matchCat && matchStatus && matchPIC && matchQuery;
+  });
+
+  filtered.forEach(d => {
+    if (d.c !== lastCat) {
+      h += `<tr class="h"><td colspan="4">${d.c}</td></tr>`;
+      lastCat = d.c;
+    }
+    h += `
+      <tr>
+        <td style="font-weight: 500">${d.n}</td>
+        <td style="color: var(--mu); font-weight: 500">${d.q}</td>
+        <td><span style="font-size: 0.82rem; font-weight: 600; color: var(--mu)">${d.p}</span></td>
+        <td>
+          <select class="st ${d.s}" data-i="${d.id}">
+            ${["Belum", "Proses", "Siap"].map(x => `<option value="${x}" ${x === d.s ? "selected" : ""}>${x}</option>`).join("")}
+          </select>
+        </td>
+      </tr>
+    `;
+  });
+
+  $("tb").innerHTML = h || '<tr><td colspan="4" style="text-align:center; padding: 24px; color: var(--mu)">Tidak ada item perlengkapan yang cocok dengan filter.</td></tr>';
+}
+
+$("tb").addEventListener("change", e => {
+  const i = e.target.dataset.i;
+  if (i == null) return;
+  const newVal = e.target.value;
+  D[i].s = newVal;
+  e.target.className = "st " + newVal;
+  save();
+  stats();
+});
+
+["q", "fc", "fs", "fp"].forEach(id => {
+  $(id).addEventListener("input", render);
+});
+
+// Theme switcher logic
+const themeBtn = $("theme-toggle");
+let currentTheme = localStorage.getItem("k3-theme") || "auto";
+
+function applyTheme(theme) {
+  if (theme === "auto") {
+    document.documentElement.removeAttribute("data-theme");
+  } else {
+    document.documentElement.setAttribute("data-theme", theme);
+  }
+}
+applyTheme(currentTheme);
+
+themeBtn.addEventListener("click", () => {
+  if (currentTheme === "auto") currentTheme = "dark";
+  else if (currentTheme === "dark") currentTheme = "light";
+  else currentTheme = "auto";
+  
+  localStorage.setItem("k3-theme", currentTheme);
+  applyTheme(currentTheme);
+});
+
+// Reset status logic
+$("reset-btn").addEventListener("click", () => {
+  if (confirm("Apakah Anda yakin ingin mengembalikan semua status perlengkapan ke default 'Belum'?")) {
+    D.forEach(d => d.s = "Belum");
+    save();
+    stats();
+    render();
+  }
+});
+
+// Initial startup execution
+stats();
+render();
+</script>
+</body>
+</html>
